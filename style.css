@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: auto;
+}
+body {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  padding: 3.2rem 6.8rem;
+  background-color: rgb(177, 246, 223);
+}
+button {
+  cursor: pointer;
+  border-radius: 9px;
+  border: none;
+}
+.add-box {
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+}
+.input-add {
+  border: none;
+  padding-left: 10px;
+  border-radius: 9px;
+  width: 500px;
+  height: 40px;
+}
+.input-add:focus {
+  outline: none;
+}
+.btn-add {
+  height: 40px;
+  width: 60px;
+}
+.list {
+  background-color: bisque;
+  border-radius: 9px;
+  width: 800px;
+  height: 480px;
+  list-style: none;
+  padding: 2.4rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: scroll;
+}
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 9px;
+}
+.task {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+.task p {
+  width: 100%;
+  margin-left: 1rem;
+  font-size: 1.4rem;
+}
+.task input {
+  width: 30px;
+  height: 30px;
+}
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  background-color: none;
+}
