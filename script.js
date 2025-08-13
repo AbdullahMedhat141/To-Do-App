@@ -23,13 +23,16 @@ function handleAdd() {
   inputAdd.focus();
 }
 
-inputAdd.addEventListener("input", (e) => {
-  text = e.target.value;
-});
-
 btnAdd.addEventListener("click", handleAdd);
 inputAdd.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     handleAdd();
+  }
+});
+
+// Event delegation for delete
+list.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    e.target.parentElement.remove();
   }
 });

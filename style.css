@@ -78,6 +78,10 @@ button {
   width: 30px;
   height: 30px;
 }
+.checked p {
+  text-decoration: line-through;
+  color: gray;
+}
 .delete-btn {
   width: 30px;
   height: 30px;
