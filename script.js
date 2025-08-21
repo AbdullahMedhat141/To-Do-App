@@ -5,9 +5,23 @@ const btnAdd = document.querySelector(".btn-add");
 const inputAdd = document.querySelector(".input-add");
 const list = document.querySelector(".list");
 
-function crateEl(text) {
+document.addEventListener("DOMContentLoaded", () => {
+  const storedList = getList();
+  storedList.forEach((item) => {
+    const task = crateEl(item.id, item.text);
+    list.append(task);
+  });
+});
+
+function getList() {
+  const storedList = localStorage.getItem("list");
+  return JSON.parse(storedList) || [];
+}
+
+function crateEl(id, text) {
   const task = document.createElement("li");
   task.classList.add("task");
+  task.id = id;
   const taskCheckBox = document.createElement("input");
   taskCheckBox.setAttribute("type", "checkbox");
   const taskP = document.createElement("p");
@@ -19,10 +33,27 @@ function crateEl(text) {
   return task;
 }
 
+function saveToStorage(id, text) {
+  const parsedList = getList();
+  parsedList.push({ id, text });
+  const stringifiedList = JSON.stringify(parsedList);
+  localStorage.setItem("list", stringifiedList);
+}
+function removeFromStorage(e) {
+  const parsedList = getList();
+  const filteredList = parsedList.filter(
+    (item) => item.id != e.target.parentElement.id
+  );
+  const stringifiedList = JSON.stringify(filteredList);
+  localStorage.setItem("list", stringifiedList);
+}
+
 function handleAdd() {
   const text = inputAdd.value.trim();
   if (!text) return;
-  const task = crateEl(text);
+  const id = Math.random();
+  const task = crateEl(id, text);
+  saveToStorage(id, text);
   list.append(task);
   inputAdd.value = "";
   inputAdd.focus();
@@ -38,6 +69,7 @@ inputAdd.addEventListener("keydown", (e) => {
 list.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
     e.target.parentElement.remove();
+    removeFromStorage(e);
   }
 });
 
