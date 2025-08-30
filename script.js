@@ -8,7 +8,7 @@ const list = document.querySelector(".list");
 document.addEventListener("DOMContentLoaded", () => {
   const storedList = getList();
   storedList.forEach((item) => {
-    const task = crateEl(item.id, item.text);
+    const task = crateEl(item.id, item.text, item.checked);
     list.append(task);
   });
 });
@@ -18,12 +18,14 @@ function getList() {
   return JSON.parse(storedList) || [];
 }
 
-function crateEl(id, text) {
+function crateEl(id, text, checked) {
   const task = document.createElement("li");
   task.classList.add("task");
+  task.classList.add(`${checked && "checked"}`);
   task.id = id;
   const taskCheckBox = document.createElement("input");
   taskCheckBox.setAttribute("type", "checkbox");
+  taskCheckBox.checked = checked;
   const taskP = document.createElement("p");
   taskP.textContent = text;
   const taskDeleteBtn = document.createElement("button");
@@ -33,9 +35,9 @@ function crateEl(id, text) {
   return task;
 }
 
-function saveToStorage(id, text) {
+function saveToStorage(id, text, checked = false) {
   const parsedList = getList();
-  parsedList.push({ id, text });
+  parsedList.push({ id, text, checked });
   const stringifiedList = JSON.stringify(parsedList);
   localStorage.setItem("list", stringifiedList);
 }
@@ -81,5 +83,11 @@ list.addEventListener("change", (e) => {
     } else {
       taskItem.classList.remove("checked");
     }
+    removeFromStorage(e);
+    saveToStorage(
+      taskItem.id,
+      taskItem.textContent.slice(0, -1),
+      taskItem.classList.contains("checked")
+    );
   }
 });
