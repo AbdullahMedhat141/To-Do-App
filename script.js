@@ -77,17 +77,17 @@ list.addEventListener("click", (e) => {
 
 list.addEventListener("change", (e) => {
   if (e.target.type === "checkbox") {
-    const taskItem = e.target.closest("li");
+    const taskEl = e.target.closest("li");
     if (e.target.checked) {
-      taskItem.classList.add("checked");
+      taskEl.classList.add("checked");
     } else {
-      taskItem.classList.remove("checked");
+      taskEl.classList.remove("checked");
     }
     removeFromStorage(e);
     saveToStorage(
-      taskItem.id,
-      taskItem.textContent.slice(0, -1),
-      taskItem.classList.contains("checked")
+      taskEl.id,
+      taskEl.querySelector("p").textContent,
+      taskEl.classList.contains("checked")
     );
   }
 });
